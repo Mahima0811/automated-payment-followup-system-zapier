@@ -1,0 +1,69 @@
+{
+  "artifact_type": "descriptive_workflow_blueprint_not_zapier_export",
+  "project": "Automated Payment Follow-Up System",
+  "schedule": {
+    "app": "Schedule by Zapier",
+    "frequency": "daily",
+    "time": "09:00"
+  },
+  "source": {
+    "app": "Google Sheets",
+    "worksheet": "Payment_Tracker"
+  },
+  "filters": [
+    {
+      "app": "Filter by Zapier",
+      "condition": "Status equals Pending"
+    },
+    {
+      "app": "Filter by Zapier",
+      "condition": "Email is not blank AND Reminder Status does not equal Reminder Sent"
+    }
+  ],
+  "paths": [
+    {
+      "name": "Maintenance",
+      "condition": "Type equals Maintenance",
+      "recipient": "sadicsha.khandait@associates.scit.edu",
+      "actions": [
+        {
+          "app": "Gmail",
+          "action": "Send personalized reminder"
+        },
+        {
+          "app": "Google Sheets",
+          "action": "Update matching row reminder status/date"
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "condition": "Type equals Project",
+      "recipient": "mehak.chhabra@associates.scit.edu",
+      "actions": [
+        {
+          "app": "Gmail",
+          "action": "Send personalized reminder"
+        },
+        {
+          "app": "Google Sheets",
+          "action": "Update matching row reminder status/date"
+        }
+      ]
+    }
+  ],
+  "spreadsheet_columns": [
+    "Sr No.",
+    "Invoice ID",
+    "Type",
+    "Name",
+    "Amount (INR)",
+    "Bank Name",
+    "Bank Account Number",
+    "Status",
+    "Recipient Email",
+    "Reminder Status",
+    "Last Reminder Date"
+  ],
+  "security_note": "Do not put credentials or secrets in this file. This is not a native importable Zapier export."
+}
